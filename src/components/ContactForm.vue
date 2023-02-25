@@ -1,6 +1,6 @@
 <template>
-    <form 
-        @submit.prevent ="submitContact"
+    <Form 
+        @submit ="submitContact"
         :validation-schema = "contactFormSchema"
     >
         <div class="form-group">
@@ -12,6 +12,7 @@
             v-model="contactLocal.name"
             />
             <ErrorMessage name="name" class="error-feedback" />
+            
         </div>
         <div class="form-group">
             <label for="email">E-mail</label>
@@ -66,7 +67,7 @@
             Xóa
             </button>
         </div>
-    </form>
+    </Form>
 </template>
 <script>
 import * as  yup from "yup";
@@ -92,10 +93,12 @@ export default{
             email: yup
                 .string()
                 .email("E-mail không đúng.")
-                .max(50, "E-mail tối đa 50 ký tự."),
-            address: yup.string().max(100, "Địa chỉ tối đa 100 ký tự."),
+                .max(50, "E-mail tối đa 50 ký tự.")
+                .required(),
+            address: yup.string().required().max(100, "Địa chỉ tối đa 100 ký tự."),
             phone: yup
                 .string()
+                .required()
                 .matches(
                     /((09|03|07|08|05)+([0-9]{8})\b)/g,
                     'Số điện thoại không hợp lệ.',
@@ -108,11 +111,12 @@ export default{
     },
     methods: {
         submitContact(){
-             this.$emit('submit:contact', this.contactLocal);
+            this.$emit('submit:contact', this.contactLocal);
         },
         deleteContact(){
             this.$emit("delete:contact", this.contactLocal.id);
         },
+
     },
 
 }

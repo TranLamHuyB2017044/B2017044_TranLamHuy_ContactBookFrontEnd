@@ -27,10 +27,10 @@
         <div class="form-group">
             <label for="address">Địa chỉ</label>
             <Field
-            name="address"
-            type="text"
-            class="form-control"
-            v-model="contactLocal.address"
+                name="address"
+                type="text"
+                class="form-control"
+                v-model="contactLocal.address"
             />
             <ErrorMessage name="address" class="error-feedback" />
         </div>
@@ -95,7 +95,10 @@ export default{
                 .email("E-mail không đúng.")
                 .max(50, "E-mail tối đa 50 ký tự.")
                 .required(),
-            address: yup.string().required().max(100, "Địa chỉ tối đa 100 ký tự."),
+            address: yup
+                .string()
+                .required()
+                .max(100, "Địa chỉ tối đa 100 ký tự."),
             phone: yup
                 .string()
                 .required()
